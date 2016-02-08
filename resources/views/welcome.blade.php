@@ -38,7 +38,7 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Inventory Update</div>
+                <div class="title">Laravel 5 Inventory System</div>
             </div>
         </div>
     </body>
