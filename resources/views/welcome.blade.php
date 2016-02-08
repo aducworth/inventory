@@ -38,7 +38,7 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Inventory</div>
+                <div class="title">Inventory Update</div>
             </div>
         </div>
     </body>
