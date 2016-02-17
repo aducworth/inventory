@@ -11,10 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -27,6 +23,9 @@ Route::get('/', function () {
 */
 
 Route::group(['middleware' => ['web']], function () {
+	
+	Route::get('/', 'ProductController@index');
+
     /* User Authentication */
 	Route::get('auth/login', 'Auth\AuthController@getLogin');
 	Route::post('auth/login', 'Auth\AuthController@postLogin');
