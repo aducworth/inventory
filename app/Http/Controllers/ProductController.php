@@ -13,6 +13,9 @@ use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
 {
+	
+	private $product_statuses = [0 => 'Pending',1 => 'For Sale',3 => 'Sold'];
+	
     /**
      * Create a new controller instance.
      *
@@ -48,7 +51,8 @@ class ProductController extends Controller
 		        'shipping_paid'		=> $request->shipping_paid,
 		        'actual_shipping'	=> $request->actual_shipping,
 		        'seller_fee'		=> $request->seller_fee,
-		        'shipping_fee'		=> $request->shipping_fee
+		        'shipping_fee'		=> $request->shipping_fee,
+		        'product_status'	=> $request->product_status
 		    ]);
 		    
 	    } else {
@@ -65,6 +69,7 @@ class ProductController extends Controller
 	        $product->actual_shipping	= $request->actual_shipping;
 	        $product->seller_fee		= $request->seller_fee;
 	        $product->shipping_fee		= $request->shipping_fee;
+	        $product->product_status	= $request->product_status;
 	        
 	        $product->save();
 		    
@@ -90,7 +95,7 @@ class ProductController extends Controller
 		$locations = Location::orderBy('name')->lists('name','id');
 		$sources = Source::orderBy('name')->lists('name','id');
 		
-	    return view('products.createedit',['stores' => $stores,'locations' => $locations, 'sources' => $sources, 'product' => $product]);
+	    return view('products.createedit',['stores' => $stores,'locations' => $locations, 'sources' => $sources, 'product' => $product, 'product_statuses' => $this->product_statuses]);
 	}
 	
 	/**
@@ -108,7 +113,7 @@ class ProductController extends Controller
 		$locations = Location::orderBy('name')->lists('name','id');
 		$sources = Source::orderBy('name')->lists('name','id');
 		
-	    return view('products.createedit',['stores' => $stores,'locations' => $locations, 'sources' => $sources, 'product' => $product]);
+	    return view('products.createedit',['stores' => $stores,'locations' => $locations, 'sources' => $sources, 'product' => $product, 'product_statuses' => $this->product_statuses]);
 	}
     
     /**
