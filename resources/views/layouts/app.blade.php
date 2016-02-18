@@ -6,16 +6,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<title>Inventory</title>
-
-<!--
-	<link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700" rel="stylesheet" type="text/css">
-	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css">
--->
-
-    <link href="{{ asset("assets/css/bootstrap.css") }}" rel="stylesheet">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	
+	<script type="text/javascript" src="{{ asset("assets/bower_components/jquery/dist/jquery.min.js") }}"></script>
+	<script type="text/javascript" src="{{ asset("assets/bower_components/moment/min/moment.min.js") }}"></script>
+	<script type="text/javascript" src="{{ asset("assets/bower_components/bootstrap/dist/js/bootstrap.min.js") }}"></script>
+	<script type="text/javascript" src="{{ asset("assets/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js") }}"></script>
+	<link rel="stylesheet" href="{{ asset("assets/bower_components/bootstrap/dist/css/bootstrap.min.css") }}" />
+	<link href="{{ asset("assets/css/bootstrap.css") }}" rel="stylesheet">
+	<link rel="stylesheet" href="{{ asset("assets/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css") }}" />
 	<script src="https://code.highcharts.com/highcharts.js"></script>
 
 	<style>
@@ -51,6 +49,7 @@
 					<ul class="nav navbar-nav">
 						@if (!Auth::guest())
 							<li><a href="/product/"><i class="fa fa-btn fa-heart"></i>Products</a></li>
+							<li><a href="/purchase/"><i class="fa fa-btn fa-heart"></i>Purchases</a></li>
 						@endif
 					</ul>
 
