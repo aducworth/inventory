@@ -5,7 +5,7 @@
 		<div class="col-sm-offset-2 col-sm-8">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					New Product
+					{!! $product->id?'Edit':'New' !!} Product
 				</div>
 
 				<div class="panel-body">
@@ -43,9 +43,9 @@
 						</div>
 						
 						<div class="form-group">
-						    {!! Form::Label('source', 'Source',['class' => 'col-sm-3 control-label']) !!}
+						    {!! Form::Label('purchase', 'Purchase',['class' => 'col-sm-3 control-label']) !!}
 						    <div class="col-sm-6">
-						    	{!! Form::select('source_id', $sources, null, ['class' => 'form-control','placeholder' => 'Select a Source']) !!}
+						    	{!! Form::select('purchase_id', $purchases, null, ['class' => 'form-control','placeholder' => 'Select a Purchase']) !!}
 						    </div>
 						</div>
 						
@@ -122,7 +122,9 @@
 							</div>
 						</div>
 					{!! Form::close() !!}
-					<form action="/product/{{ $product->id }}" method="POST">
+					
+					@if ($product->id)
+					<form action="/product/{{ $product->id }}" method="POST" class='pull-right'>
 						{{ csrf_field() }}
 						{{ method_field('DELETE') }}
 
@@ -130,6 +132,7 @@
 							<i class="fa fa-btn fa-trash"></i>Delete
 						</button>
 					</form>
+					@endif
 				</div>
 			</div>
 
