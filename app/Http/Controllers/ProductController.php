@@ -8,6 +8,7 @@ use App\Product;
 use App\Store;
 use App\Source;
 use App\Location;
+use App\Purchase;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -37,6 +38,9 @@ class ProductController extends Controller
 		
 	    $this->validate($request, [
 	        'name' => 'required|max:255',
+	        'store_id' => 'required',
+	        'location_id' => 'required',
+	        'purchase_id' => 'required',
 	    ]);
 	    
 	    if( !$request->id ) {
@@ -45,7 +49,7 @@ class ProductController extends Controller
 		        'name' 				=> $request->name,
 		        'store_id'			=> $request->store_id,
 		        'location_id'		=> $request->location_id,
-		        'source_id'			=> $request->source_id,
+		        'purchase_id'		=> $request->purchase_id,
 		        'purchase_price'	=> $request->purchase_price,
 		        'sale_price'		=> $request->sale_price,
 		        'shipping_paid'		=> $request->shipping_paid,
@@ -62,7 +66,7 @@ class ProductController extends Controller
 		    $product->name 			   	= $request->name;
 	        $product->store_id			= $request->store_id;
 	        $product->location_id		= $request->location_id;
-	        $product->source_id		   	= $request->source_id;
+	        $product->purchase_id		= $request->purchase_id;
 	        $product->purchase_price	= $request->purchase_price;
 	        $product->sale_price		= $request->sale_price;
 	        $product->shipping_paid	   	= $request->shipping_paid;
@@ -91,11 +95,8 @@ class ProductController extends Controller
 		
 		$product = new Product;
 		
-		$stores = Store::orderBy('name')->lists('name','id');
-		$locations = Location::orderBy('name')->lists('name','id');
-		$sources = Source::orderBy('name')->lists('name','id');
+		return $this->edit($request,$product);
 		
-	    return view('products.createedit',['stores' => $stores,'locations' => $locations, 'sources' => $sources, 'product' => $product, 'product_statuses' => $this->product_statuses]);
 	}
 	
 	/**
@@ -107,13 +108,11 @@ class ProductController extends Controller
 	public function edit(Request $request, Product $product)
 	{
 		
-		//$product = new Product;
-		
 		$stores = Store::orderBy('name')->lists('name','id');
 		$locations = Location::orderBy('name')->lists('name','id');
-		$sources = Source::orderBy('name')->lists('name','id');
+		$purchases = Purchase::orderBy('purchase_date')->lists('name','id');
 		
-	    return view('products.createedit',['stores' => $stores,'locations' => $locations, 'sources' => $sources, 'product' => $product, 'product_statuses' => $this->product_statuses]);
+	    return view('products.input',['stores' => $stores,'locations' => $locations, 'purchases' => $purchases, 'product' => $product, 'product_statuses' => $this->product_statuses]);
 	}
     
     /**
@@ -124,9 +123,29 @@ class ProductController extends Controller
 	 */
 	public function index(Request $request)
 	{
-		$products = Product::orderBy('name','asc')->get();
+		$stores = Store::orderBy('name')->lists('name','id');
+		
+		$query = Product::orderBy('name','asc');
+		
+		if( $request->store ) {
+			$query->where('store_id',$request->store);
+		}
+		
+		if( $request->status ) {
+			$query->where('product_status',$request->status);
+		}
+		
+		if( $request->from_date ) {
+			$query->where('updated_at','>=',date('Y-m-d',strtotime($request->from_date)));
+		}
+		
+		if( $request->to_date ) {
+			$query->where('updated_at','<=',date('Y-m-d',strtotime('+1 day',strtotime($request->to_date))));
+		}
+		
+		$products = $query->get();
 
-	    return view('products.index',['products'=>$products]);
+	    return view('products.index',['products'=>$products,'statuses' => $this->product_statuses,'stores' => $stores ]);
 	}
 	
 	/**
