@@ -105,12 +105,19 @@
 								<input type="text" name="transaction_fee" id="task-name" class="form-control" value="{{ old('transaction_fee') }}">
 							</div>
 						</div>
+						
+						<div class="form-group">
+						    {!! Form::Label('product_status', 'Status',['class' => 'col-sm-3 control-label']) !!}
+						    <div class="col-sm-6">
+						    	{!! Form::select('product_status', $product_statuses, null, ['class' => 'form-control']) !!}
+						    </div>
+						</div>
 
 						<!-- Add Task Button -->
 						<div class="form-group">
 							<div class="col-sm-offset-3 col-sm-6">
 								<button type="submit" class="btn btn-default">
-									<i class="fa fa-btn fa-plus"></i>Add Product
+									<i class="fa fa-btn fa-plus"></i>Save Product
 								</button>
 							</div>
 						</div>
