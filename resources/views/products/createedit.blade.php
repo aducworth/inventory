@@ -12,23 +12,48 @@
 					<!-- Display Validation Errors -->
 					@include('common.errors')
 
-					<form action="/product" method="POST" class="form-horizontal">
+<!-- 					<form action="/product" method="POST" class="form-horizontal" enctype="multipart/form-data"> -->
+					{!! Form::model($product,['route' => 'product.store','class' => 'form-horizontal']) !!}
+					
 						{{ csrf_field() }}
+						
+						{!! Form::hidden('id') !!}
 
 						<!-- Product Name -->
 						<div class="form-group">
 							<label for="task-name" class="col-sm-3 control-label">Product</label>
 
 							<div class="col-sm-6">
-								<input type="text" name="name" id="task-name" class="form-control" value="{{ old('product') }}">
+								{!! Form::text('name', null, ['class' => 'form-control']) !!}
 							</div>
+						</div>
+						
+						<div class="form-group">
+						    {!! Form::Label('store', 'Store',['class' => 'col-sm-3 control-label']) !!}
+						    <div class="col-sm-6">
+						    	{!! Form::select('store_id', $stores, null, ['class' => 'form-control','placeholder' => 'Select a Store']) !!}
+						    </div>
+						</div>
+						
+						<div class="form-group">
+						    {!! Form::Label('location', 'Current Location',['class' => 'col-sm-3 control-label']) !!}
+						    <div class="col-sm-6">
+						    	{!! Form::select('location_id', $locations, null, ['class' => 'form-control','placeholder' => 'Select a Location']) !!}
+						    </div>
+						</div>
+						
+						<div class="form-group">
+						    {!! Form::Label('source', 'Source',['class' => 'col-sm-3 control-label']) !!}
+						    <div class="col-sm-6">
+						    	{!! Form::select('source_id', $sources, null, ['class' => 'form-control','placeholder' => 'Select a Source']) !!}
+						    </div>
 						</div>
 						
 						<div class="form-group">
 							<label for="task-name" class="col-sm-3 control-label">Purchase Price</label>
 
 							<div class="col-sm-6">
-								<input type="text" name="purchase_price" id="task-name" class="form-control" value="{{ old('purchase_price') }}">
+								{!! Form::text('purchase_price', null, ['class' => 'form-control']) !!}
 							</div>
 						</div>
 						
@@ -36,7 +61,7 @@
 							<label for="task-name" class="col-sm-3 control-label">Sale Price</label>
 
 							<div class="col-sm-6">
-								<input type="text" name="sale_price" id="task-name" class="form-control" value="{{ old('sale_price') }}">
+								{!! Form::text('sale_price', null, ['class' => 'form-control']) !!}
 							</div>
 						</div>
 						
@@ -44,7 +69,7 @@
 							<label for="task-name" class="col-sm-3 control-label">Shipping Paid</label>
 
 							<div class="col-sm-6">
-								<input type="text" name="shipping_paid" id="task-name" class="form-control" value="{{ old('shipping_paid') }}">
+								{!! Form::text('shipping_paid', null, ['class' => 'form-control']) !!}
 							</div>
 						</div>
 						
@@ -52,7 +77,7 @@
 							<label for="task-name" class="col-sm-3 control-label">Actual Shipping</label>
 
 							<div class="col-sm-6">
-								<input type="text" name="actual_shipping" id="task-name" class="form-control" value="{{ old('actual_shipping') }}">
+								{!! Form::text('actual_shipping', null, ['class' => 'form-control']) !!}
 							</div>
 						</div>
 						
@@ -60,7 +85,7 @@
 							<label for="task-name" class="col-sm-3 control-label">Seller Fee</label>
 
 							<div class="col-sm-6">
-								<input type="text" name="seller_fee" id="task-name" class="form-control" value="{{ old('seller_fee') }}">
+								{!! Form::text('seller_fee', null, ['class' => 'form-control']) !!}
 							</div>
 						</div>
 						
@@ -69,6 +94,7 @@
 
 							<div class="col-sm-6">
 								<input type="text" name="shipping_fee" id="task-name" class="form-control" value="{{ old('shipping_fee') }}">
+								{!! Form::text('shipping_fee', null, ['class' => 'form-control']) !!}
 							</div>
 						</div>
 						
@@ -88,6 +114,14 @@
 								</button>
 							</div>
 						</div>
+					{!! Form::close() !!}
+					<form action="/product/{{ $product->id }}" method="POST">
+						{{ csrf_field() }}
+						{{ method_field('DELETE') }}
+
+						<button type="submit" id="delete-task-{{ $product->id }}" class="btn btn-danger">
+							<i class="fa fa-btn fa-trash"></i>Delete
+						</button>
 					</form>
 				</div>
 			</div>

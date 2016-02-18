@@ -2,7 +2,7 @@
 
 @section('content')
 	<div class="container">
-		<div class="col-sm-offset-2 col-sm-8">
+<!-- 		<div class="col-sm-offset-2 col-sm-8"> -->
 			
 			@include('common.errors')
 			
@@ -23,18 +23,12 @@
 								@foreach ($products as $product)
 									<tr>
 										<td class="table-text"><div>{{ $product->name }}</div></td>
-
+										
 										<!-- Task Delete Button -->
 										<td>
-											<form action="/product/{{ $product->id }}" method="POST">
-												{{ csrf_field() }}
-												{{ method_field('DELETE') }}
-
-												<button type="submit" id="delete-task-{{ $product->id }}" class="btn btn-danger">
-													<i class="fa fa-btn fa-trash"></i>Delete
-												</button>
-											</form>
+											 <a href="{!! route('product.edit', array($product->id)) !!}" class='btn btn-default'>Edit</a>
 										</td>
+										
 									</tr>
 								@endforeach
 							</tbody>
@@ -44,6 +38,6 @@
 			@else
 				<div class="alert alert-info" role="alert">No products currently in the database.</div>
 			@endif
-		</div>
+<!-- 		</div> -->
 	</div>
 @endsection
