@@ -54,7 +54,6 @@ class PurchaseController extends Controller
 	    if( !$request->id ) {
 		    
 		    Purchase::create([
-		        'name' 				=> $request->name,
 		        'source_id'			=> $request->source_id,
 		        'amount'			=> $request->amount,
 		        'purchase_date'		=> $request->purchase_date,
@@ -65,7 +64,6 @@ class PurchaseController extends Controller
 		    
 		    $purchase = Purchase::find($request->id);
 		    
-		    $purchase->name 			   	= $request->name;
 	        $purchase->source_id			= $request->source_id;
 	        $purchase->amount				= $request->amount;
 	        $purchase->purchase_date		= $request->purchase_date;
