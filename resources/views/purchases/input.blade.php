@@ -77,7 +77,7 @@
 						</div>
 					{!! Form::close() !!}
 					@if ($purchase->id)
-					<form action="/purchase/{{ $purchase->id }}" method="POST" class='pull-right'>
+					<form action="/purchase/{{ $purchase->id }}" method="POST" class='pull-right' onsubmit="return confirm('Are you sure?')">
 						{{ csrf_field() }}
 						{{ method_field('DELETE') }}
 

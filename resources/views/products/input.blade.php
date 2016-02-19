@@ -31,7 +31,7 @@
 						<div class="form-group">
 						    {!! Form::Label('store', 'Store',['class' => 'col-sm-3 control-label']) !!}
 						    <div class="col-sm-6">
-						    	{!! Form::select('store_id', $stores, null, ['class' => 'form-control','placeholder' => 'Select a Store']) !!}
+						    	{!! Form::select('store_id', $stores, null, ['class' => 'form-control calculate-fees','placeholder' => 'Select a Store','id' => 'store-id']) !!}
 						    </div>
 						</div>
 						
@@ -53,7 +53,7 @@
 							<label for="task-name" class="col-sm-3 control-label">Purchase Price</label>
 
 							<div class="col-sm-6">
-								{!! Form::text('purchase_price', null, ['class' => 'form-control']) !!}
+								{!! Form::text('purchase_price', 0, ['class' => 'form-control']) !!}
 							</div>
 						</div>
 						
@@ -61,7 +61,7 @@
 							<label for="task-name" class="col-sm-3 control-label">Sale Price</label>
 
 							<div class="col-sm-6">
-								{!! Form::text('sale_price', null, ['class' => 'form-control']) !!}
+								{!! Form::text('sale_price', 0, ['class' => 'form-control calculate-fees','id' => 'sale-price']) !!}
 							</div>
 						</div>
 						
@@ -69,7 +69,7 @@
 							<label for="task-name" class="col-sm-3 control-label">Shipping Paid</label>
 
 							<div class="col-sm-6">
-								{!! Form::text('shipping_paid', null, ['class' => 'form-control']) !!}
+								{!! Form::text('shipping_paid', 0, ['class' => 'form-control calculate-fees','id' => 'shipping-paid']) !!}
 							</div>
 						</div>
 						
@@ -77,7 +77,7 @@
 							<label for="task-name" class="col-sm-3 control-label">Actual Shipping</label>
 
 							<div class="col-sm-6">
-								{!! Form::text('actual_shipping', null, ['class' => 'form-control']) !!}
+								{!! Form::text('actual_shipping', 0, ['class' => 'form-control']) !!}
 							</div>
 						</div>
 						
@@ -85,7 +85,7 @@
 							<label for="task-name" class="col-sm-3 control-label">Seller Fee</label>
 
 							<div class="col-sm-6">
-								{!! Form::text('seller_fee', null, ['class' => 'form-control']) !!}
+								{!! Form::text('seller_fee', 0, ['class' => 'form-control','id' => 'seller-fee']) !!}
 							</div>
 						</div>
 						
@@ -93,8 +93,7 @@
 							<label for="task-name" class="col-sm-3 control-label">Shipping Fee</label>
 
 							<div class="col-sm-6">
-								<input type="text" name="shipping_fee" id="task-name" class="form-control" value="{{ old('shipping_fee') }}">
-								{!! Form::text('shipping_fee', null, ['class' => 'form-control']) !!}
+								{!! Form::text('shipping_fee', 0, ['class' => 'form-control','id' => 'shipping-fee']) !!}
 							</div>
 						</div>
 						
@@ -102,7 +101,7 @@
 							<label for="task-name" class="col-sm-3 control-label">Transaction Fee</label>
 
 							<div class="col-sm-6">
-								<input type="text" name="transaction_fee" id="task-name" class="form-control" value="{{ old('transaction_fee') }}">
+								{!! Form::text('transaction_fee', 0, ['class' => 'form-control','id' => 'transaction-fee']) !!}
 							</div>
 						</div>
 						
@@ -123,8 +122,43 @@
 						</div>
 					{!! Form::close() !!}
 					
+					<script>
+					
+					$(document).ready(function(){
+						
+						$('.calculate-fees').on('change', function() {
+							var seller_fee 		= 0;
+							var shipping_fee 	= 0;
+							var transaction_fee = 0;
+							var changed			= $(this).attr('name');
+							var store			= $('#store-id option:selected').text();
+							
+							if( store == 'eBay' ) {
+								seller_fee 			= $('#sale-price').val() * 0.1;
+								shipping_fee 		= $('#shipping-paid').val() * 0.1;
+								transaction_fee		= ( Number($('#sale-price').val()) + Number($('#shipping-paid').val()) ) * 0.03;
+							} else if( store == 'Amazon' ) {
+								seller_fee 			= ( Number($('#sale-price').val()) * 0.25 ) + 3;
+								shipping_fee 		= 0;
+								transaction_fee		= 0;
+							} else {
+								seller_fee 			= Number($('#sale-price').val()) *0.1;
+								shipping_fee 		= 0;
+								transaction_fee		= 0;
+							}
+						    
+						    $('#seller-fee').val(seller_fee.toFixed(2));
+						    $('#shipping-fee').val(shipping_fee.toFixed(2));
+						    $('#transaction-fee').val(transaction_fee.toFixed(2));
+						    
+						});
+					
+					});
+					
+					</script>
+					
 					@if ($product->id)
-					<form action="/product/{{ $product->id }}" method="POST" class='pull-right'>
+					<form action="/product/{{ $product->id }}" method="POST" class='pull-right' onsubmit="return confirm('Are you sure?')">
 						{{ csrf_field() }}
 						{{ method_field('DELETE') }}
 
