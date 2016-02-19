@@ -120,7 +120,7 @@ class ExpenseController extends Controller
 	{
 		$stores = Store::orderBy('name')->lists('name','id');
 		
-		$query = Expense::orderBy('purchase_date','asc');
+		$query = Expense::orderBy('purchase_date','desc');
 		
 		if( $request->store ) {
 			$query->where('store_id',$request->store);

@@ -121,7 +121,7 @@ class PurchaseController extends Controller
 	{
 		$sources = Source::orderBy('name')->lists('name','id');
 		
-		$query = Purchase::orderBy('purchase_date','asc');
+		$query = Purchase::orderBy('purchase_date','desc');
 		
 		if( $request->source ) {
 			$query->where('source_id',$request->source);
