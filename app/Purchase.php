@@ -11,7 +11,7 @@ class Purchase extends Model
      *
      * @var array
      */
-    protected $fillable = ['name','source_id','amount','receipt_url','purchase_date'];
+    protected $fillable = ['name','source_id','amount','receipt_url','purchase_date','notes'];
 
     /**
      * Get the source.

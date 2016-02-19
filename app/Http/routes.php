@@ -49,5 +49,7 @@ Route::group(['middleware' => ['web']], function () {
 	Route::resource('product', 'ProductController');
 	
 	Route::resource('purchase', 'PurchaseController');
+	
+	Route::resource('expense', 'ExpenseController');
 		
 });

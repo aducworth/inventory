@@ -4,16 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Purchase;
-use App\Source;
+use App\Store;
+use App\Expense;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Storage;
 
-class PurchaseController extends Controller
+class ExpenseController extends Controller
 {
-	
-	/**
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -24,7 +23,7 @@ class PurchaseController extends Controller
     }
     
      /**
-	 * Save a new purchase.
+	 * Save a new expense.
 	 *
 	 * @param  Request  $request
 	 * @return Response
@@ -53,20 +52,20 @@ class PurchaseController extends Controller
 	    
 	    if( !$request->id ) {
 		    
-		    Purchase::create([
-		        'name' 				=> $request->name,
-		        'source_id'			=> $request->source_id,
+		    Expense::create([
+		        'store_id'			=> $request->store_id,
 		        'amount'			=> $request->amount,
 		        'purchase_date'		=> $request->purchase_date,
+		        'notes'				=> $request->notes,
 		        'receipt_url'		=> (isset($filepath)?$filepath:'')
 		    ]);
 		    
 	    } else {
 		    
-		    $purchase = Purchase::find($request->id);
+		    $purchase = Expense::find($request->id);
 		    
-		    $purchase->name 			   	= $request->name;
-	        $purchase->source_id			= $request->source_id;
+		    $purchase->notes 			   	= $request->notes;
+	        $purchase->store_id				= $request->store_id;
 	        $purchase->amount				= $request->amount;
 	        $purchase->purchase_date		= $request->purchase_date;
 	        
@@ -79,11 +78,11 @@ class PurchaseController extends Controller
 		    
 	    }
 	    	
-	    return redirect('/purchase');
+	    return redirect('/expense');
 	}
 	
 	/**
-	 * Create purchase
+	 * Create expense
 	 *
 	 * @param  Request  $request
 	 * @return Response
@@ -91,40 +90,40 @@ class PurchaseController extends Controller
 	public function create(Request $request)
 	{
 		
-		$purchase = new Purchase;
+		$expense = new Expense;
 		
-		return $this->edit($request,$purchase);
+		return $this->edit($request,$expense);
 		
 	}
 	
 	/**
-	 * Edit purchase
+	 * Edit expense
 	 *
 	 * @param  Request  $request
 	 * @return Response
 	 */
-	public function edit(Request $request, Purchase $purchase)
+	public function edit(Request $request, Expense $expense)
 	{
 		
-		$sources = 	Source::orderBy('name')->lists('name','id');
+		$stores = 	Store::orderBy('name')->lists('name','id');
 		
-	    return view('purchases.input',['sources' => $sources,'purchase' => $purchase]);
+	    return view('expenses.input',['stores' => $stores,'expense' => $expense]);
 	}
     
     /**
-	 * Display a list of all of the purchases
+	 * Display a list of all of the expenses
 	 *
 	 * @param  Request  $request
 	 * @return Response
 	 */
 	public function index(Request $request)
 	{
-		$sources = Source::orderBy('name')->lists('name','id');
+		$stores = Store::orderBy('name')->lists('name','id');
 		
-		$query = Purchase::orderBy('purchase_date','asc');
+		$query = Expense::orderBy('purchase_date','asc');
 		
-		if( $request->source ) {
-			$query->where('source_id',$request->source);
+		if( $request->store ) {
+			$query->where('store_id',$request->store);
 		}
 		
 		if( $request->from_date ) {
@@ -135,23 +134,22 @@ class PurchaseController extends Controller
 			$query->where('purchase_date','<=',date('Y-m-d',strtotime($request->to_date)));
 		}
 		
-		$purchases = $query->get();
+		$expenses = $query->get();
 
-	    return view('purchases.index',['purchases'=>$purchases,'sources'=>$sources]);
+	    return view('expenses.index',['expenses'=>$expenses,'stores'=>$stores]);
 	}
 	
 	/**
-     * Destroy the given purchase.
+     * Destroy the given expense.
      *
      * @param  Request  $request
      * @param  Task  $task
      * @return Response
      */
-    public function destroy(Request $request, Purchase $purchase)
+    public function destroy(Request $request, Expense $expense)
     {
         //$this->authorize('destroy', $product);
-        $purchase->delete();
-        return redirect('/purchase');
+        $expense->delete();
+        return redirect('/expense');
     }
-
 }

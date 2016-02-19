@@ -50,6 +50,7 @@
 						@if (!Auth::guest())
 							<li><a href="/product/"><i class="fa fa-btn fa-heart"></i>Products</a></li>
 							<li><a href="/purchase/"><i class="fa fa-btn fa-heart"></i>Purchases</a></li>
+							<li><a href="/expense/"><i class="fa fa-btn fa-heart"></i>Expenses</a></li>
 						@endif
 					</ul>
 

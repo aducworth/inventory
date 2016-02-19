@@ -110,7 +110,8 @@ class ProductController extends Controller
 		
 		$stores = Store::orderBy('name')->lists('name','id');
 		$locations = Location::orderBy('name')->lists('name','id');
-		$purchases = Purchase::orderBy('purchase_date')->lists('name','id');
+		$purchases = Purchase::orderBy('purchase_date')->join('sources as s', 's.id', '=', 'purchases.source_id')
+    ->selectRaw('CONCAT(purchases.purchase_date, " - ", s.name) as concatname, purchases.id')->lists("concatname",'id');
 		
 	    return view('products.input',['stores' => $stores,'locations' => $locations, 'purchases' => $purchases, 'product' => $product, 'product_statuses' => $this->product_statuses]);
 	}

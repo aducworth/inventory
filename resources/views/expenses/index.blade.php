@@ -10,7 +10,7 @@
 			
 				<form class="form-inline">
 				  <div class="form-group">
-				    {!! Form::select('source', $sources, (isset($_GET['source'])?$_GET['source']:null), ['class' => 'form-control','placeholder' => 'All Sources']) !!}
+				    {!! Form::select('store', $stores, (isset($_GET['store'])?$_GET['store']:null), ['class' => 'form-control','placeholder' => 'All Stores']) !!}
 				  </div>
 				  <div class="form-group">
 					  {!! Form::Label('from_date', 'From') !!}
@@ -50,11 +50,11 @@
 			
 			<? $total = 0; ?>
 			
-			@if (count($purchases) > 0)
+			@if (count($expenses) > 0)
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						Purchases
-						<a href="{!! route('purchase.create') !!}" class='pull-right'>+New Purchase</a>
+						Expenses
+						<a href="{!! route('expense.create') !!}" class='pull-right'>+New Expense</a>
 					</div>
 
 					<div class="panel-body">
@@ -62,31 +62,31 @@
 							<thead>
 								<th>Date</th>
 								<th>Amount</th>
-								<th>Source</th>
-								<th>Receipt</th>								
+								<th>Stores</th>
+								<th>Receipt</th>
 								<th>&nbsp;</th>
 							</thead>
 							<tbody>
-								@foreach ($purchases as $purchase)
+								@foreach ($expenses as $expense)
 									<tr>
-										<td class="table-text"><div>{{ date( 'm/d/Y', strtotime( $purchase->purchase_date ) ) }}</div></td>
-										<td class="table-text"><div>${{ $purchase->amount }}</div></td>
-										<td class="table-text"><div>{{ $purchase->source->name }}</div></td>
+										<td class="table-text"><div>{{ date( 'm/d/Y', strtotime( $expense->purchase_date ) ) }}</div></td>
+										<td class="table-text"><div>${{ $expense->amount }}</div></td>
+										<td class="table-text"><div>{{ $expense->store->name }}</div></td>
+										
 										<td>
-											@if ($purchase->receipt_url)
-											<a href='https://s3.amazonaws.com/charlestontreasures{{ $purchase->receipt_url }}' target='_blank'>
+											@if ($expense->receipt_url)
+											<a href='https://s3.amazonaws.com/charlestontreasures{{ $expense->receipt_url }}' target='_blank'>
 												<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
 											</a>
 											@endif
 										</td>
-										
 										<td>
-											 <a href="{!! route('purchase.edit', array($purchase->id)) !!}" class='btn btn-default pull-right'>Edit</a>
+											 <a href="{!! route('expense.edit', array($expense->id)) !!}" class='btn btn-default pull-right'>Edit</a>
 										</td>
 										
 									</tr>
 									
-									<? $total += $purchase->amount; ?>
+									<? $total += $expense->amount; ?>
 									
 								@endforeach
 							</tbody>
@@ -101,7 +101,7 @@
 					</div>
 				</div>
 			@else
-				<div class="alert alert-info" role="alert">No purchases currently in the database.<a href="{!! route('purchase.create') !!}" class='pull-right'>+New Purchase</a></div>
+				<div class="alert alert-info" role="alert">No expenses currently in the database.<a href="{!! route('expense.create') !!}" class='pull-right'>+New Expense</a></div>
 			@endif
 
 	</div>
