@@ -12,7 +12,6 @@
 					<!-- Display Validation Errors -->
 					@include('common.errors')
 
-<!-- 					<form action="/product" method="POST" class="form-horizontal" enctype="multipart/form-data"> -->
 					{!! Form::model($product,['route' => 'product.store','class' => 'form-horizontal']) !!}
 					
 						{{ csrf_field() }}
@@ -45,7 +44,7 @@
 						<div class="form-group">
 						    {!! Form::Label('purchase', 'Purchase',['class' => 'col-sm-3 control-label']) !!}
 						    <div class="col-sm-6">
-						    	{!! Form::select('purchase_id', $purchases, null, ['class' => 'form-control','placeholder' => 'Select a Purchase']) !!}
+						    	{!! Form::select('purchase_id', $purchases, (isset($_GET['purchase'])?$_GET['purchase']:null), ['class' => 'form-control','placeholder' => 'Select a Purchase']) !!}
 						    </div>
 						</div>
 						
@@ -115,8 +114,12 @@
 						<!-- Add Task Button -->
 						<div class="form-group">
 							<div class="col-sm-offset-3 col-sm-6">
-								<button type="submit" class="btn btn-default">
+								<button type="submit" name='submit' class="btn btn-default" value="Save">
 									<i class="fa fa-btn fa-plus"></i>Save Product
+								</button>
+								<br><br>
+								<button type="submit" name='submit' class="btn btn-default" value="SaveAdd">
+									<i class="fa fa-btn fa-plus"></i>Save Product and Add Another
 								</button>
 							</div>
 						</div>

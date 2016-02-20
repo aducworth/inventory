@@ -79,7 +79,15 @@ class ProductController extends Controller
 		    
 	    }
 	
-	    
+	    if( $request->submit == 'Save' ) {
+		    
+		    return redirect('/product');
+		    
+	    } else {
+		    
+		    return redirect('/product/create?purchase=' . $request->purchase_id);
+		    
+	    }
 	
 	    return redirect('/product');
 	}
