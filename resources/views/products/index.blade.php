@@ -119,6 +119,7 @@
 								@endforeach
 							</tbody>
 							<tfoot>
+								<th>&nbsp;</th>
 								<th>Totals</th>
 								<th>&nbsp;</th>
 								<th>&nbsp;</th>
