@@ -50,7 +50,7 @@
 				            });
 				        </script>
 				  </div>
-				  <button type="submit" class="btn btn-default">Filter</button>
+				  
 				</form>
 				
 				<br>
