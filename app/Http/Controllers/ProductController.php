@@ -134,7 +134,7 @@ class ProductController extends Controller
 	{
 		$stores = Store::orderBy('name')->lists('name','id');
 		
-		$purchases = Purchase::orderBy('purchase_date')->join('sources as s', 's.id', '=', 'purchases.source_id')
+		$purchases = Purchase::orderBy('purchase_date','desc')->join('sources as s', 's.id', '=', 'purchases.source_id')
     ->selectRaw('CONCAT(purchases.purchase_date, " - ", s.name) as concatname, purchases.id')->lists("concatname",'id');
 		
 		$query = Product::orderBy('name','asc');
