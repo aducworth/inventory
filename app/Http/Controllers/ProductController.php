@@ -134,6 +134,9 @@ class ProductController extends Controller
 	{
 		$stores = Store::orderBy('name')->lists('name','id');
 		
+		$purchases = Purchase::orderBy('purchase_date')->join('sources as s', 's.id', '=', 'purchases.source_id')
+    ->selectRaw('CONCAT(purchases.purchase_date, " - ", s.name) as concatname, purchases.id')->lists("concatname",'id');
+		
 		$query = Product::orderBy('name','asc');
 		
 		if( $request->store ) {
@@ -142,6 +145,10 @@ class ProductController extends Controller
 		
 		if( $request->status ) {
 			$query->where('product_status',$request->status);
+		}
+		
+		if( $request->purchase ) {
+			$query->where('purchase_id',$request->purchase);
 		}
 		
 		if( $request->from_date ) {
@@ -153,8 +160,8 @@ class ProductController extends Controller
 		}
 		
 		$products = $query->get();
-
-	    return view('products.index',['products'=>$products,'statuses' => $this->product_statuses,'stores' => $stores ]);
+		
+	    return view('products.index',['products'=>$products,'statuses' => $this->product_statuses,'stores' => $stores, 'purchases' => $purchases ]);
 	}
 	
 	/**

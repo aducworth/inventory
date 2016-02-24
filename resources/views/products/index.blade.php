@@ -13,8 +13,14 @@
 				    {!! Form::select('store', $stores, (isset($_GET['store'])?$_GET['store']:null), ['class' => 'form-control','placeholder' => 'All Stores']) !!}
 				  </div>
 				  <div class="form-group">
+				    {!! Form::select('purchase', $purchases, (isset($_GET['purchase'])?$_GET['purchase']:null), ['class' => 'form-control','placeholder' => 'All Purchases']) !!}
+				  </div>
+				  <div class="form-group">
 				    {!! Form::select('status', $statuses, (isset($_GET['status'])?$_GET['status']:null), ['class' => 'form-control','placeholder' => 'All Statuses']) !!}
 				  </div>
+				  <button type="submit" class="btn btn-default">Filter</button>
+				  <br>
+				  <br>
 				  <div class="form-group">
 					  {!! Form::Label('from_date', 'From') !!}
 					  <div class='col-sm-6'>
@@ -53,6 +59,9 @@
 			
 			
 			@if (count($products) > 0)
+			
+			<form class="form-inline" method='post' action='/products/bulk'>
+			
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						Products
@@ -62,6 +71,7 @@
 					<div class="panel-body">
 						<table class="table table-striped task-table">
 							<thead>
+								<th>{!! Form::checkbox('checkall', null, false, ['class' => 'form-control']) !!}</th>
 								<th>Product</th>
 								<th>Store</th>
 								<th>Status</th>
@@ -91,6 +101,7 @@
 									?>
 									
 									<tr>
+										<td>{!! Form::checkbox(('products['.$product->id.']'), $product->id, false, ['class' => 'form-control']) !!}</td>
 										<td class="table-text"><div>{{ $product->name }}</div></td>
 										<td class="table-text"><div>{{ $product->store->name }}</div></td>
 										<td class="table-text"><div>{{ $statuses[$product->product_status] }}</div></td>
@@ -120,6 +131,8 @@
 						</table>
 					</div>
 				</div>
+				
+				</form>
 			@else
 				<div class="alert alert-info" role="alert">No products currently in the database. <a href="{!! route('product.create') !!}" class='pull-right'>+New Product</a></div>
 			@endif
