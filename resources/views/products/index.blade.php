@@ -108,7 +108,7 @@
 										<td class="table-text"><div>${{ $product->purchase_price }}</div></td>
 										<td class="table-text"><div>${{ $product->sale_price }}</div></td>
 										<td class="table-text"><div>$<?=number_format( $fees, 2 ) ?></div></td>
-										<td class="table-text"><div>$<?=number_format( $profit, 2 ) ?></div></td>
+										<td class="table-text"><div>$<?=number_format( $profit, 2 ) ?>(<?=number_format( ( $product->sale_price / ( $product->purchase_price + $fees ) ) * 100 ) ?>%)</div></td>
 										
 										<!-- Task Delete Button -->
 										<td>
@@ -126,7 +126,7 @@
 								<th>$<?=number_format( $total_purchase, 2 ) ?></th>
 								<th>$<?=number_format( $total_sale, 2 ) ?></th>
 								<th>$<?=number_format( $total_fees, 2 ) ?></th>
-								<th>$<?=number_format( $total_profit, 2 ) ?></th>
+								<th>$<?=number_format( $total_profit, 2 ) ?>(<?=number_format( ( $total_sale / ( $total_purchase + $total_fees ) ) * 100 ) ?>%)</th>
 								<th>&nbsp;</th>
 							</tfoot>
 						</table>
