@@ -58,46 +58,52 @@
 					</div>
 
 					<div class="panel-body">
-						<table class="table table-striped task-table">
-							<thead>
-								<th>Date</th>
-								<th>Amount</th>
-								<th>Stores</th>
-								<th>Receipt</th>
-								<th>&nbsp;</th>
-							</thead>
-							<tbody>
-								@foreach ($expenses as $expense)
-									<tr>
-										<td class="table-text"><div>{{ date( 'm/d/Y', strtotime( $expense->purchase_date ) ) }}</div></td>
-										<td class="table-text"><div>${{ $expense->amount }}</div></td>
-										<td class="table-text"><div>{{ $expense->store->name }}</div></td>
+						
+						<div class="table-responsive">
+							
+							<table class="table table-striped task-table">
+								<thead>
+									<th>Date</th>
+									<th>Amount</th>
+									<th>Stores</th>
+									<th>Receipt</th>
+									<th>&nbsp;</th>
+								</thead>
+								<tbody>
+									@foreach ($expenses as $expense)
+										<tr>
+											<td class="table-text"><div>{{ date( 'm/d/Y', strtotime( $expense->purchase_date ) ) }}</div></td>
+											<td class="table-text"><div>${{ $expense->amount }}</div></td>
+											<td class="table-text"><div>{{ $expense->store->name }}</div></td>
+											
+											<td>
+												@if ($expense->receipt_url)
+												<a href='https://s3.amazonaws.com/charlestontreasures{{ $expense->receipt_url }}' target='_blank'>
+													<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+												</a>
+												@endif
+											</td>
+											<td>
+												 <a href="{!! route('expense.edit', array($expense->id)) !!}" class='btn btn-default pull-right'>Edit</a>
+											</td>
+											
+										</tr>
 										
-										<td>
-											@if ($expense->receipt_url)
-											<a href='https://s3.amazonaws.com/charlestontreasures{{ $expense->receipt_url }}' target='_blank'>
-												<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
-											</a>
-											@endif
-										</td>
-										<td>
-											 <a href="{!! route('expense.edit', array($expense->id)) !!}" class='btn btn-default pull-right'>Edit</a>
-										</td>
+										<? $total += $expense->amount; ?>
 										
-									</tr>
-									
-									<? $total += $expense->amount; ?>
-									
-								@endforeach
-							</tbody>
-							<tfoot>
-								<th>Total</th>
-								<th>$<?=number_format( $total, 2 ) ?></th>
-								<th>&nbsp;</th>
-								<th>&nbsp;</th>
-								<th>&nbsp;</th>
-							</tfoot>
-						</table>
+									@endforeach
+								</tbody>
+								<tfoot>
+									<th>Total</th>
+									<th>$<?=number_format( $total, 2 ) ?></th>
+									<th>&nbsp;</th>
+									<th>&nbsp;</th>
+									<th>&nbsp;</th>
+								</tfoot>
+							</table>
+						
+						</div>
+						
 					</div>
 				</div>
 			@else

@@ -58,47 +58,53 @@
 					</div>
 
 					<div class="panel-body">
-						<table class="table table-striped task-table">
-							<thead>
-								<th>Date</th>
-								<th>Amount</th>
-								<th>Source</th>
-								<th>Receipt</th>								
-								<th>&nbsp;</th>
-							</thead>
-							<tbody>
-								@foreach ($purchases as $purchase)
-									<tr>
-										<td class="table-text"><div>{{ date( 'm/d/Y', strtotime( $purchase->purchase_date ) ) }}</div></td>
-										<td class="table-text"><div>${{ $purchase->amount }}</div></td>
-										<td class="table-text"><div>{{ $purchase->source->name }}</div></td>
-										<td>
-											@if ($purchase->receipt_url)
-											<a href='https://s3.amazonaws.com/charlestontreasures{{ $purchase->receipt_url }}' target='_blank'>
-												<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
-											</a>
-											@endif
-										</td>
+						
+						<div class="table-responsive">
+							
+							<table class="table table-striped task-table">
+								<thead>
+									<th>Date</th>
+									<th>Amount</th>
+									<th>Source</th>
+									<th>Receipt</th>								
+									<th>&nbsp;</th>
+								</thead>
+								<tbody>
+									@foreach ($purchases as $purchase)
+										<tr>
+											<td class="table-text"><div>{{ date( 'm/d/Y', strtotime( $purchase->purchase_date ) ) }}</div></td>
+											<td class="table-text"><div>${{ $purchase->amount }}</div></td>
+											<td class="table-text"><div>{{ $purchase->source->name }}</div></td>
+											<td>
+												@if ($purchase->receipt_url)
+												<a href='https://s3.amazonaws.com/charlestontreasures{{ $purchase->receipt_url }}' target='_blank'>
+													<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+												</a>
+												@endif
+											</td>
+											
+											<td>
+												 <a href="{!! route('purchase.edit', array($purchase->id)) !!}" class='btn btn-default pull-right'>Edit</a>
+												 <a href="/product/create?purchase={!! $purchase->id !!}" class='btn btn-default pull-right'>Add Product</a> 
+											</td>
+											
+										</tr>
 										
-										<td>
-											 <a href="{!! route('purchase.edit', array($purchase->id)) !!}" class='btn btn-default pull-right'>Edit</a>
-											 <a href="/product/create?purchase={!! $purchase->id !!}" class='btn btn-default pull-right'>Add Product</a> 
-										</td>
+										<? $total += $purchase->amount; ?>
 										
-									</tr>
-									
-									<? $total += $purchase->amount; ?>
-									
-								@endforeach
-							</tbody>
-							<tfoot>
-								<th>Total</th>
-								<th>$<?=number_format( $total, 2 ) ?></th>
-								<th>&nbsp;</th>
-								<th>&nbsp;</th>
-								<th>&nbsp;</th>
-							</tfoot>
-						</table>
+									@endforeach
+								</tbody>
+								<tfoot>
+									<th>Total</th>
+									<th>$<?=number_format( $total, 2 ) ?></th>
+									<th>&nbsp;</th>
+									<th>&nbsp;</th>
+									<th>&nbsp;</th>
+								</tfoot>
+							</table>
+						
+						</div>
+						
 					</div>
 				</div>
 			@else

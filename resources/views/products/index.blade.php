@@ -69,67 +69,73 @@
 					</div>
 
 					<div class="panel-body">
-						<table class="table table-striped task-table">
-							<thead>
-								<th>{!! Form::checkbox('checkall', null, false, ['class' => 'form-control']) !!}</th>
-								<th>Product</th>
-								<th>Store</th>
-								<th>Status</th>
-								<th>Purchase</th>
-								<th>Selling For</th>
-								<th>Fees</th>
-								<th>Profit</th>
-								<th>&nbsp;</th>
-							</thead>
-							<tbody>
-							<?
-								$total_purchase = 0;
-								$total_sale		= 0;
-								$total_fees		= 0;
-								$total_profit	= 0;
-							?>
-								@foreach ($products as $product)
-								
-									<? 
-										$fees = ( $product->seller_fee + $product->shipping_fee + $product->transaction_fee );
-										$profit = ( ( $product->sale_price + $product->shipping_paid ) - ( $product->purchase_price + $product->actual_shipping + $fees ) ); 
-										
-										$total_purchase += $product->purchase_price;
-										$total_sale		+= $product->sale_price;
-										$total_fees		+= $fees;
-										$total_profit   += $profit;
-									?>
+						
+						<div class="table-responsive">
+							
+							<table class="table table-striped task-table">
+								<thead>
+									<th>{!! Form::checkbox('checkall', null, false, ['class' => 'form-control']) !!}</th>
+									<th>Product</th>
+									<th>Store</th>
+									<th>Status</th>
+									<th>Purchase</th>
+									<th>Selling For</th>
+									<th>Fees</th>
+									<th>Profit</th>
+									<th>&nbsp;</th>
+								</thead>
+								<tbody>
+								<?
+									$total_purchase = 0;
+									$total_sale		= 0;
+									$total_fees		= 0;
+									$total_profit	= 0;
+								?>
+									@foreach ($products as $product)
 									
-									<tr>
-										<td>{!! Form::checkbox(('products['.$product->id.']'), $product->id, false, ['class' => 'form-control']) !!}</td>
-										<td class="table-text"><div>{{ $product->name }}</div></td>
-										<td class="table-text"><div>{{ $product->store->name }}</div></td>
-										<td class="table-text"><div>{{ $statuses[$product->product_status] }}</div></td>
-										<td class="table-text"><div>${{ $product->purchase_price }}</div></td>
-										<td class="table-text"><div>${{ $product->sale_price }}</div></td>
-										<td class="table-text"><div>$<?=number_format( $fees, 2 ) ?></div></td>
-										<td class="table-text"><div>$<?=number_format( $profit, 2 ) ?>(<?=number_format( ( $product->sale_price / ( $product->purchase_price + $fees ) ) * 100 ) ?>%)</div></td>
+										<? 
+											$fees = ( $product->seller_fee + $product->shipping_fee + $product->transaction_fee );
+											$profit = ( ( $product->sale_price + $product->shipping_paid ) - ( $product->purchase_price + $product->actual_shipping + $fees ) ); 
+											
+											$total_purchase += $product->purchase_price;
+											$total_sale		+= $product->sale_price;
+											$total_fees		+= $fees;
+											$total_profit   += $profit;
+										?>
 										
-										<!-- Task Delete Button -->
-										<td>
-											 <a href="{!! route('product.edit', array($product->id)) !!}" class='btn btn-default pull-right'>Edit</a>
-										</td>
-										
-									</tr>
-								@endforeach
-							</tbody>
-							<tfoot>
-								<th>&nbsp;</th>
-								<th>Totals</th>
-								<th>&nbsp;</th>
-								<th>&nbsp;</th>
-								<th>$<?=number_format( $total_purchase, 2 ) ?></th>
-								<th>$<?=number_format( $total_sale, 2 ) ?></th>
-								<th>$<?=number_format( $total_fees, 2 ) ?></th>
-								<th>$<?=number_format( $total_profit, 2 ) ?>(<?=number_format( ( $total_sale / ( $total_purchase + $total_fees ) ) * 100 ) ?>%)</th>
-								<th>&nbsp;</th>
-							</tfoot>
-						</table>
+										<tr>
+											<td>{!! Form::checkbox(('products['.$product->id.']'), $product->id, false, ['class' => 'form-control']) !!}</td>
+											<td class="table-text"><div>{{ $product->name }}</div></td>
+											<td class="table-text"><div>{{ $product->store->name }}</div></td>
+											<td class="table-text"><div>{{ $statuses[$product->product_status] }}</div></td>
+											<td class="table-text"><div>${{ $product->purchase_price }}</div></td>
+											<td class="table-text"><div>${{ $product->sale_price }}</div></td>
+											<td class="table-text"><div>$<?=number_format( $fees, 2 ) ?></div></td>
+											<td class="table-text"><div>$<?=number_format( $profit, 2 ) ?>(<?=number_format( ( $product->sale_price / ( $product->purchase_price + $fees ) ) * 100 ) ?>%)</div></td>
+											
+											<!-- Task Delete Button -->
+											<td>
+												 <a href="{!! route('product.edit', array($product->id)) !!}" class='btn btn-default pull-right'>Edit</a>
+											</td>
+											
+										</tr>
+									@endforeach
+								</tbody>
+								<tfoot>
+									<th>&nbsp;</th>
+									<th>Totals</th>
+									<th>&nbsp;</th>
+									<th>&nbsp;</th>
+									<th>$<?=number_format( $total_purchase, 2 ) ?></th>
+									<th>$<?=number_format( $total_sale, 2 ) ?></th>
+									<th>$<?=number_format( $total_fees, 2 ) ?></th>
+									<th>$<?=number_format( $total_profit, 2 ) ?>(<?=number_format( ( $total_sale / ( $total_purchase + $total_fees ) ) * 100 ) ?>%)</th>
+									<th>&nbsp;</th>
+								</tfoot>
+							</table>
+						
+						</div>
+						
 					</div>
 				</div>
 				
