@@ -52,7 +52,7 @@
 							<label for="task-name" class="col-sm-3 control-label">Purchase Price</label>
 
 							<div class="col-sm-6">
-								{!! Form::text('purchase_price', 0, ['class' => 'form-control']) !!}
+								{!! Form::text('purchase_price', null, ['class' => 'form-control']) !!}
 							</div>
 						</div>
 						
@@ -60,7 +60,7 @@
 							<label for="task-name" class="col-sm-3 control-label">Sale Price</label>
 
 							<div class="col-sm-6">
-								{!! Form::text('sale_price', 0, ['class' => 'form-control calculate-fees','id' => 'sale-price']) !!}
+								{!! Form::text('sale_price', null, ['class' => 'form-control calculate-fees','id' => 'sale-price']) !!}
 							</div>
 						</div>
 						
@@ -68,7 +68,7 @@
 							<label for="task-name" class="col-sm-3 control-label">Shipping Paid</label>
 
 							<div class="col-sm-6">
-								{!! Form::text('shipping_paid', 0, ['class' => 'form-control calculate-fees','id' => 'shipping-paid']) !!}
+								{!! Form::text('shipping_paid', null, ['class' => 'form-control calculate-fees','id' => 'shipping-paid']) !!}
 							</div>
 						</div>
 						
@@ -76,7 +76,7 @@
 							<label for="task-name" class="col-sm-3 control-label">Actual Shipping</label>
 
 							<div class="col-sm-6">
-								{!! Form::text('actual_shipping', 0, ['class' => 'form-control']) !!}
+								{!! Form::text('actual_shipping', null, ['class' => 'form-control']) !!}
 							</div>
 						</div>
 						
@@ -84,7 +84,7 @@
 							<label for="task-name" class="col-sm-3 control-label">Seller Fee</label>
 
 							<div class="col-sm-6">
-								{!! Form::text('seller_fee', 0, ['class' => 'form-control','id' => 'seller-fee']) !!}
+								{!! Form::text('seller_fee', null, ['class' => 'form-control','id' => 'seller-fee']) !!}
 							</div>
 						</div>
 						
@@ -92,7 +92,7 @@
 							<label for="task-name" class="col-sm-3 control-label">Shipping Fee</label>
 
 							<div class="col-sm-6">
-								{!! Form::text('shipping_fee', 0, ['class' => 'form-control','id' => 'shipping-fee']) !!}
+								{!! Form::text('shipping_fee', null, ['class' => 'form-control','id' => 'shipping-fee']) !!}
 							</div>
 						</div>
 						
@@ -100,7 +100,7 @@
 							<label for="task-name" class="col-sm-3 control-label">Transaction Fee</label>
 
 							<div class="col-sm-6">
-								{!! Form::text('transaction_fee', 0, ['class' => 'form-control','id' => 'transaction-fee']) !!}
+								{!! Form::text('transaction_fee', null, ['class' => 'form-control','id' => 'transaction-fee']) !!}
 							</div>
 						</div>
 						
