@@ -64,7 +64,7 @@
 			
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						Products
+						Products ({!! count($products) !!})
 						<a href="{!! route('product.create') !!}" class='pull-right'>+New Product</a>
 					</div>
 
