@@ -45,6 +45,8 @@ class ProductController extends Controller
 	    
 	    if( !$request->id ) {
 		    
+		    $request->quantity = ($request->quantity?$request->quantity:1);
+		    
 		    Product::create([
 		        'name' 				=> $request->name,
 		        'store_id'			=> $request->store_id,
