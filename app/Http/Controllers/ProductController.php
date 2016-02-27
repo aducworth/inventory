@@ -28,6 +28,44 @@ class ProductController extends Controller
     }
     
     /**
+	 * Save bulk products.
+	 *
+	 * @param  Request  $request
+	 * @return Response
+	 */
+	public function bulk(Request $request)
+	{
+		if( count( $request->products ) > 0 && $request->bulk_status != '' ) {
+			
+			foreach( $request->products as $id ) {
+				
+				$product = Product::find($id);
+				
+				//dd($product);
+				
+				if( $product->id ) {
+					
+					$product->product_status = $request->bulk_status;
+					
+					// if it is sold, set qty sold = total qty
+					if( $request->bulk_status == 3 ) {
+						
+						$product->quantity_sold = $product->quantity;
+						
+					}
+					
+					$product->save();
+					
+				}
+				
+			}
+			
+		}
+		
+		return redirect('/product?status=' . $request->bulk_status);
+	}
+    
+    /**
 	 * Create a new product.
 	 *
 	 * @param  Request  $request

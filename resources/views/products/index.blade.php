@@ -60,7 +60,7 @@
 			
 			@if (count($products) > 0)
 			
-			<form class="form-inline" method='post' action='/products/bulk'>
+			<form class="form-inline" method='post' action='/product/bulk'>
 			
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -74,7 +74,7 @@
 							
 							<table class="table table-striped task-table">
 								<thead>
-									<th>{!! Form::checkbox('checkall', null, false, ['class' => 'form-control']) !!}</th>
+									<th>{!! Form::checkbox('checkall', null, false, ['class' => 'form-control','id' => 'checkall']) !!}</th>
 									<th>Product</th>
 									<th>Store</th>
 									<th>Status</th>
@@ -149,6 +149,25 @@
 						
 					</div>
 				</div>
+				
+				<div class="form-group">
+					{!! Form::Label('bulk_status', 'Add Selected to Status') !!}
+			       {!! Form::select('bulk_status', $statuses, null, ['class' => 'form-control','placeholder' => 'Choose Status']) !!}
+			    </div>
+			    {{ csrf_field() }}
+			    <button type="submit" class="btn btn-default">Save</button>
+			    
+			    <script>
+			    
+			    $(document).ready(function(){
+				    
+				    $("#checkall").change(function () {
+					    $("input:checkbox").prop('checked', $(this).prop("checked"));
+					});
+			    
+			    });
+			    
+			    </script>
 				
 				</form>
 			@else
