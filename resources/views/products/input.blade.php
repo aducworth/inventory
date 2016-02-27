@@ -105,6 +105,22 @@
 						</div>
 						
 						<div class="form-group">
+							<label for="task-name" class="col-sm-3 control-label">Quantity</label>
+
+							<div class="col-sm-6">
+								{!! Form::text('quantity', null, ['class' => 'form-control']) !!}
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label for="task-name" class="col-sm-3 control-label">Quantity Sold</label>
+
+							<div class="col-sm-6">
+								{!! Form::text('quantity_sold', null, ['class' => 'form-control']) !!}
+							</div>
+						</div>
+						
+						<div class="form-group">
 						    {!! Form::Label('product_status', 'Status',['class' => 'col-sm-3 control-label']) !!}
 						    <div class="col-sm-6">
 						    	{!! Form::select('product_status', $product_statuses, null, ['class' => 'form-control']) !!}

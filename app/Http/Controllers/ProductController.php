@@ -56,7 +56,9 @@ class ProductController extends Controller
 		        'actual_shipping'	=> $request->actual_shipping,
 		        'seller_fee'		=> $request->seller_fee,
 		        'shipping_fee'		=> $request->shipping_fee,
-		        'product_status'	=> $request->product_status
+		        'product_status'	=> $request->product_status,
+		        'quantity'			=> $request->quantity,
+		        'quantity_sold'		=> $request->quantity_sold
 		    ]);
 		    
 	    } else {
@@ -74,6 +76,8 @@ class ProductController extends Controller
 	        $product->seller_fee		= $request->seller_fee;
 	        $product->shipping_fee		= $request->shipping_fee;
 	        $product->product_status	= $request->product_status;
+	        $product->quantity			= $request->quantity;
+	        $product->quantity_sold		= $request->quantity_sold;
 	        
 	        $product->save();
 		    
