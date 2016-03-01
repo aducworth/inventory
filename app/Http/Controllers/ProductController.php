@@ -187,7 +187,7 @@ class ProductController extends Controller
 			$query->where('store_id',$request->store);
 		}
 		
-		if( $request->status ) {
+		if( isset($request->status) && $request->status != '' ) {
 			$query->where('product_status',$request->status);
 		}
 		
