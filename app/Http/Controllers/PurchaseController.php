@@ -57,6 +57,7 @@ class PurchaseController extends Controller
 		        'source_id'			=> $request->source_id,
 		        'amount'			=> $request->amount,
 		        'purchase_date'		=> $request->purchase_date,
+		        'notes'				=> $request->notes,
 		        'receipt_url'		=> (isset($filepath)?$filepath:'')
 		    ]);
 		    
@@ -67,6 +68,7 @@ class PurchaseController extends Controller
 	        $purchase->source_id			= $request->source_id;
 	        $purchase->amount				= $request->amount;
 	        $purchase->purchase_date		= $request->purchase_date;
+	        $purchase->notes 				= $request->notes;
 	        
 	        if( $receipt ) {
 		        $purchase->receipt_url			= $filepath;
