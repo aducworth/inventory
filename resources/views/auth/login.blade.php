@@ -33,6 +33,16 @@
 								<input type="password" name="password" class="form-control">
 							</div>
 						</div>
+						
+						<div class="form-group">
+                            <div class="col-md-6 col-md-offset-3">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="remember"> Remember Me
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
 
 						<!-- Login Button -->
 						<div class="form-group">
