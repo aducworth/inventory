@@ -126,6 +126,20 @@
 						    	{!! Form::select('product_status', $product_statuses, null, ['class' => 'form-control']) !!}
 						    </div>
 						</div>
+						
+						<div class="form-group">
+						    {!! Form::Label('improvement_hours', 'Improvement Hours',['class' => 'col-sm-3 control-label']) !!}
+						    <div class="col-sm-6">
+						    	{!! Form::text('improvement_hours', null, ['class' => 'form-control']) !!}
+						    </div>
+						</div>
+						
+						<div class="form-group">
+						    {!! Form::Label('improvement_dollars', 'Improvement $',['class' => 'col-sm-3 control-label']) !!}
+						    <div class="col-sm-6">
+						    	{!! Form::text('improvement_dollars', null, ['class' => 'form-control']) !!}
+						    </div>
+						</div>
 
 						<!-- Add Task Button -->
 						<div class="form-group">

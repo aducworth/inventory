@@ -98,7 +98,9 @@ class ProductController extends Controller
 		        'shipping_fee'		=> $request->shipping_fee,
 		        'product_status'	=> $request->product_status,
 		        'quantity'			=> $request->quantity,
-		        'quantity_sold'		=> $request->quantity_sold
+		        'quantity_sold'		=> $request->quantity_sold,
+		        'improvement_hours'	=> $request->improvement_hours,
+		        'improvement_dollars' => $request->improvement_dollars
 		    ]);
 		    
 	    } else {
@@ -118,6 +120,8 @@ class ProductController extends Controller
 	        $product->product_status	= $request->product_status;
 	        $product->quantity			= $request->quantity;
 	        $product->quantity_sold		= $request->quantity_sold;
+	        $product->improvement_hours	= $request->improvement_hours;
+	        $product->improvement_dollars = $request->improvement_dollars;
 	        
 	        $product->save();
 		    
