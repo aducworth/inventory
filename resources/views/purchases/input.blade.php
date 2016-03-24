@@ -37,7 +37,7 @@
 							<label for="task-name" class="col-sm-3 control-label">Purchase Date</label>
 
 							<div class="col-sm-6 input-group date" id="datetimepicker1">
-								{!! Form::text('purchase_date', date('mm/dd/YYYY'), ['class' => 'form-control']) !!}
+								{!! Form::text('purchase_date', (isset($purchase->purchase_date)?date('mm/dd/YYYY',strtotime($purchase->purchase_date)):date('mm/dd/YYYY')), ['class' => 'form-control']) !!}
 								<span class="input-group-addon">
 			                        <span class="glyphicon glyphicon-calendar"></span>
 			                    </span>
