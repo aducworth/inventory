@@ -11,7 +11,7 @@ class Product extends Model
      *
      * @var array
      */
-    protected $fillable = ['name','notes','store_id','location_id','purchase_id','purchase_price','sale_price','sale_price','shipping_price','actual_shipping','seller_fee','transaction_fee','product_status','quantity','quantity_sold','improvement_hours','improvement_dollars'];
+    protected $fillable = ['name','notes','store_id','location_id','purchase_id','purchase_price','sale_price','sale_price','shipping_price','actual_shipping','seller_fee','transaction_fee','product_status','quantity','quantity_sold','improvement_hours','improvement_dollars','source_id'];
         
     /**
      * Get the store.
@@ -19,6 +19,14 @@ class Product extends Model
     public function store()
     {
         return $this->belongsTo(Store::class);
+    }
+    
+    /**
+     * Get the source.
+     */
+    public function source()
+    {
+        return $this->belongsTo(Source::class);
     }
     
     /**

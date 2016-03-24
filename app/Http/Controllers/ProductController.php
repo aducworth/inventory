@@ -75,10 +75,10 @@ class ProductController extends Controller
 	{
 		
 	    $this->validate($request, [
-	        'name' => 'required|max:255',
-	        'store_id' => 'required',
-	        'location_id' => 'required',
-	        'purchase_id' => 'required',
+	        'name' 			=> 'required|max:255',
+	        'store_id' 		=> 'required',
+	        'location_id' 	=> 'required',
+	        'source_id' 	=> 'required',
 	    ]);
 	    
 	    if( !$request->id ) {
@@ -89,7 +89,7 @@ class ProductController extends Controller
 		        'name' 				=> $request->name,
 		        'store_id'			=> $request->store_id,
 		        'location_id'		=> $request->location_id,
-		        'purchase_id'		=> $request->purchase_id,
+		        'source_id'			=> $request->source_id,
 		        'purchase_price'	=> $request->purchase_price,
 		        'sale_price'		=> $request->sale_price,
 		        'shipping_paid'		=> $request->shipping_paid,
@@ -110,7 +110,7 @@ class ProductController extends Controller
 		    $product->name 			   	= $request->name;
 	        $product->store_id			= $request->store_id;
 	        $product->location_id		= $request->location_id;
-	        $product->purchase_id		= $request->purchase_id;
+	        $product->source_id			= $request->source_id;
 	        $product->purchase_price	= $request->purchase_price;
 	        $product->sale_price		= $request->sale_price;
 	        $product->shipping_paid	   	= $request->shipping_paid;
@@ -133,7 +133,7 @@ class ProductController extends Controller
 		    
 	    } else {
 		    
-		    return redirect('/product/create?purchase=' . $request->purchase_id);
+		    return redirect('/product/create?source=' . $request->source_id . '&store=' . $request->store_id . '&location_id=' . $request->location_id);
 		    
 	    }
 	
@@ -166,10 +166,9 @@ class ProductController extends Controller
 		
 		$stores = Store::orderBy('name')->lists('name','id');
 		$locations = Location::orderBy('name')->lists('name','id');
-		$purchases = Purchase::orderBy('purchase_date')->join('sources as s', 's.id', '=', 'purchases.source_id')
-    ->selectRaw('CONCAT(purchases.purchase_date, " - ", s.name) as concatname, purchases.id')->lists("concatname",'id');
+		$sources = Source::orderBy('name')->lists("name",'id');
 		
-	    return view('products.input',['stores' => $stores,'locations' => $locations, 'purchases' => $purchases, 'product' => $product, 'product_statuses' => $this->product_statuses]);
+	    return view('products.input',['stores' => $stores,'locations' => $locations, 'sources' => $sources, 'product' => $product, 'product_statuses' => $this->product_statuses]);
 	}
     
     /**
@@ -182,8 +181,7 @@ class ProductController extends Controller
 	{
 		$stores = Store::orderBy('name')->lists('name','id');
 		
-		$purchases = Purchase::orderBy('purchase_date','desc')->join('sources as s', 's.id', '=', 'purchases.source_id')
-    ->selectRaw('CONCAT(purchases.purchase_date, " - ", s.name) as concatname, purchases.id')->lists("concatname",'id');
+		$sources = Source::orderBy('name')->lists("name",'id');
 		
 		$query = Product::orderBy('name','asc');
 		
@@ -195,8 +193,8 @@ class ProductController extends Controller
 			$query->where('product_status',$request->status);
 		}
 		
-		if( $request->purchase ) {
-			$query->where('purchase_id',$request->purchase);
+		if( $request->source ) {
+			$query->where('source_id',$request->source);
 		}
 		
 		if( $request->from_date ) {
@@ -209,7 +207,7 @@ class ProductController extends Controller
 		
 		$products = $query->get();
 		
-	    return view('products.index',['products'=>$products,'statuses' => $this->product_statuses,'stores' => $stores, 'purchases' => $purchases ]);
+	    return view('products.index',['products'=>$products,'statuses' => $this->product_statuses,'stores' => $stores, 'sources' => $sources ]);
 	}
 	
 	/**

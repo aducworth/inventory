@@ -30,21 +30,21 @@
 						<div class="form-group">
 						    {!! Form::Label('store', 'Store',['class' => 'col-sm-3 control-label']) !!}
 						    <div class="col-sm-6">
-						    	{!! Form::select('store_id', $stores, null, ['class' => 'form-control calculate-fees','placeholder' => 'Select a Store','id' => 'store-id']) !!}
+						    	{!! Form::select('store_id', $stores, (isset($_GET['store'])?$_GET['store']:null), ['class' => 'form-control calculate-fees','placeholder' => 'Select a Store','id' => 'store-id']) !!}
 						    </div>
 						</div>
 						
 						<div class="form-group">
 						    {!! Form::Label('location', 'Current Location',['class' => 'col-sm-3 control-label']) !!}
 						    <div class="col-sm-6">
-						    	{!! Form::select('location_id', $locations, null, ['class' => 'form-control','placeholder' => 'Select a Location']) !!}
+						    	{!! Form::select('location_id', $locations, (isset($_GET['location'])?$_GET['location']:null), ['class' => 'form-control','placeholder' => 'Select a Location']) !!}
 						    </div>
 						</div>
 						
 						<div class="form-group">
-						    {!! Form::Label('purchase', 'Purchase',['class' => 'col-sm-3 control-label']) !!}
+						    {!! Form::Label('source', 'Source',['class' => 'col-sm-3 control-label']) !!}
 						    <div class="col-sm-6">
-						    	{!! Form::select('purchase_id', $purchases, (isset($_GET['purchase'])?$_GET['purchase']:null), ['class' => 'form-control','placeholder' => 'Select a Purchase']) !!}
+						    	{!! Form::select('source_id', $sources, (isset($_GET['source'])?$_GET['source']:null), ['class' => 'form-control','placeholder' => 'Select a Source']) !!}
 						    </div>
 						</div>
 						
@@ -64,7 +64,7 @@
 							</div>
 						</div>
 						
-						<div class="form-group">
+						<div class="form-group online-sales-only">
 							<label for="task-name" class="col-sm-3 control-label">Shipping Paid</label>
 
 							<div class="col-sm-6">
@@ -72,7 +72,7 @@
 							</div>
 						</div>
 						
-						<div class="form-group">
+						<div class="form-group online-sales-only">
 							<label for="task-name" class="col-sm-3 control-label">Actual Shipping</label>
 
 							<div class="col-sm-6">
@@ -88,7 +88,7 @@
 							</div>
 						</div>
 						
-						<div class="form-group">
+						<div class="form-group online-sales-only">
 							<label for="task-name" class="col-sm-3 control-label">Shipping Fee</label>
 
 							<div class="col-sm-6">
@@ -96,7 +96,7 @@
 							</div>
 						</div>
 						
-						<div class="form-group">
+						<div class="form-group online-sales-only">
 							<label for="task-name" class="col-sm-3 control-label">Transaction Fee</label>
 
 							<div class="col-sm-6">
@@ -159,6 +159,8 @@
 					
 					$(document).ready(function(){
 						
+						checkIfOnline();
+						
 						$('.calculate-fees').on('change', function() {
 							var seller_fee 		= 0;
 							var shipping_fee 	= 0;
@@ -185,8 +187,30 @@
 						    $('#transaction-fee').val(transaction_fee.toFixed(2));
 						    
 						});
+						
+						$('#store-id').on('change', function() {
+							
+							checkIfOnline();
+							
+						});
 					
 					});
+					
+					function checkIfOnline() {
+						
+						var store = $('#store-id option:selected').text();
+						
+						if( store == 'eBay' || store == 'Amazon' ) {
+							
+							$('.online-sales-only').show();
+							
+						} else {
+							
+							$('.online-sales-only').hide();
+							
+						}
+						
+					}
 					
 					</script>
 					

@@ -13,7 +13,7 @@
 				    {!! Form::select('store', $stores, (isset($_GET['store'])?$_GET['store']:null), ['class' => 'form-control','placeholder' => 'All Stores']) !!}
 				  </div>
 				  <div class="form-group">
-				    {!! Form::select('purchase', $purchases, (isset($_GET['purchase'])?$_GET['purchase']:null), ['class' => 'form-control','placeholder' => 'All Purchases']) !!}
+				    {!! Form::select('source', $sources, (isset($_GET['source'])?$_GET['source']:null), ['class' => 'form-control','placeholder' => 'All Sources']) !!}
 				  </div>
 				  <div class="form-group">
 				    {!! Form::select('status', $statuses, (isset($_GET['status'])?$_GET['status']:null), ['class' => 'form-control','placeholder' => 'All Statuses']) !!}
