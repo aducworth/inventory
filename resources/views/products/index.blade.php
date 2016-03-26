@@ -80,8 +80,8 @@
 									<th>Status</th>
 									<th>Qty</th>
 									<th>Qty Sold</th>
-									<th>Unit Cost</th>
-									<th>Unit Price</th>
+									<th>Total Cost</th>
+									<th>Total Sales</th>
 									<th>Total Fees</th>
 									<th>Potential Profit</th>
 									<th>Profit</th>
@@ -101,8 +101,8 @@
 											$fees = ( $product->seller_fee + $product->shipping_fee + $product->transaction_fee );
 											$profit = ( ( $product->sale_price + $product->shipping_paid ) - ( $product->purchase_price + $product->actual_shipping + $fees ) ); 
 											
-											$total_purchase 	+= $product->purchase_price;
-											$total_sale			+= $product->sale_price;
+											$total_purchase 	+= ( $product->purchase_price * $product->quantity );
+											$total_sale			+= ( $product->sale_price * $product->quantity_sold );
 											$total_fees			+= ( $fees * $product->quantity );
 											$total_potential 	+= ( $profit * $product->quantity );
 											$total_profit   	+= ( $profit * $product->quantity_sold );
@@ -115,8 +115,8 @@
 											<td class="table-text"><div>{{ $statuses[$product->product_status] }}</div></td>
 											<td class="table-text"><div>{{ $product->quantity }}</div></td>
 											<td class="table-text"><div>{{ $product->quantity_sold }}</div></td>
-											<td class="table-text"><div>${{ $product->purchase_price }}</div></td>
-											<td class="table-text"><div>${{ $product->sale_price }}</div></td>
+											<td class="table-text"><div>$<?=number_format( ( $product->purchase_price * $product->quantity ), 2 ) ?></div></td>
+											<td class="table-text"><div>$<?=number_format( ( $product->sale_price * $product->quantity_sold ), 2 ) ?></div></td>
 											<td class="table-text"><div>$<?=number_format( ( $fees * $product->quantity ), 2 ) ?></div></td>
 											<td class="table-text"><div>$<?=number_format( ( $profit * $product->quantity ), 2 ) ?>(<?=number_format( ( $product->sale_price / ( $product->purchase_price + $fees ) ) * 100 ) ?>%)</div></td>
 											<td class="table-text"><div>$<?=number_format( ( $profit * $product->quantity_sold ), 2 ) ?></div></td>
