@@ -115,8 +115,17 @@
 											<td class="table-text"><div>{{ $statuses[$product->product_status] }}</div></td>
 											<td class="table-text"><div>{{ $product->quantity }}</div></td>
 											<td class="table-text"><div>{{ $product->quantity_sold }}</div></td>
-											<td class="table-text"><div>$<?=number_format( ( $product->purchase_price * $product->quantity ), 2 ) ?></div></td>
-											<td class="table-text"><div>$<?=number_format( ( $product->sale_price * $product->quantity_sold ), 2 ) ?></div></td>
+											<td class="table-text"><div>$<?=number_format( ( $product->purchase_price * $product->quantity ), 2 ) ?>
+											@if ($product->quantity > 1)
+											(${{ $product->purchase_price }})
+											@endif
+											</div>
+											</td>
+											<td class="table-text"><div>$<?=number_format( ( $product->sale_price * $product->quantity_sold ), 2 ) ?>
+											@if ($product->quantity > 1)
+											(${{ $product->sale_price }})
+											@endif
+											</div></td>
 											<td class="table-text"><div>$<?=number_format( ( $fees * $product->quantity ), 2 ) ?></div></td>
 											<td class="table-text"><div>$<?=number_format( ( $profit * $product->quantity ), 2 ) ?>(<?=number_format( ( $product->sale_price / ( $product->purchase_price + $fees ) ) * 100 ) ?>%)</div></td>
 											<td class="table-text"><div>$<?=number_format( ( $profit * $product->quantity_sold ), 2 ) ?></div></td>
