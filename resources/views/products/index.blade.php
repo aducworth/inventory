@@ -122,7 +122,7 @@
 											</div>
 											</td>
 											<td class="table-text"><div>$<?=number_format( ( $product->sale_price * $product->quantity_sold ), 2 ) ?>
-											@if ($product->quantity > 1)
+											@if ($product->quantity > 1 || $product->quantity_sold == 0)
 											(${{ $product->sale_price }})
 											@endif
 											</div></td>
