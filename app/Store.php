@@ -14,10 +14,18 @@ class Store extends Model
     protected $fillable = ['name'];
     
     /**
-     * Get all of the products for the source.
+     * Get all of the products for the store.
      */
     public function products()
     {
         return $this->hasMany(Product::class);
+    }
+    
+    /**
+     * Get all of the snapshots for the store.
+     */
+    public function snapshots()
+    {
+        return $this->hasMany(Snapshot::class);
     }
 }

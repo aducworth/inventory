@@ -54,5 +54,7 @@ Route::group(['middleware' => ['web']], function () {
 	Route::resource('purchase', 'PurchaseController');
 	
 	Route::resource('expense', 'ExpenseController');
+	
+	Route::resource('snapshot', 'SnapshotController');
 		
 });
