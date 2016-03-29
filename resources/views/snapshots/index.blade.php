@@ -59,7 +59,8 @@
 							<table class="table table-striped task-table">
 								<thead>
 									<th>Date</th>
-									<th>Image</th>								
+									<th>Image</th>	
+									<th>Products</th>							
 									<th>&nbsp;</th>
 								</thead>
 								<tbody>
@@ -72,6 +73,17 @@
 													<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
 												</a>
 												@endif
+											</td>
+											<td>
+												<? 
+													$products = array();
+													if (count($snapshot->products)) {
+														foreach ($snapshot->products as $product) {
+															$products[] = $product->name;
+														}
+												   	} 												   	
+												?>
+												<?=implode(', ',$products) ?>
 											</td>
 											
 											<td>
