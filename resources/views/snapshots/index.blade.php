@@ -48,7 +48,7 @@
 			@if (count($snapshots) > 0)
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						Snapshots
+						Snapshots ( <a href="/snapshot/gallery?from_date=<?=(isset($_GET['from_date'])?$_GET['from_date']:'') ?>&to_date=<?=(isset($_GET['to_date'])?$_GET['to_date']:'') ?>">Gallery</a> )
 						<a href="{!! route('snapshot.create') !!}" class='pull-right'>+New Snapshot</a>
 					</div>
 
