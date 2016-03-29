@@ -12,7 +12,25 @@ class Product extends Model
      * @var array
      */
     protected $fillable = ['name','notes','store_id','location_id','purchase_id','purchase_price','sale_price','sale_price','shipping_price','actual_shipping','seller_fee','transaction_fee','product_status','quantity','quantity_sold','improvement_hours','improvement_dollars','source_id'];
-        
+       
+    /**
+     * Overriding base save to check first if status is sold and if so, if quantity sold = quantity.
+     *
+     * @param  array  $options
+     * @return bool
+     */
+    public function save(array $options = [])
+    {
+	    if( $this->product_status == 3 ) {
+		    
+		    $this->quantity_sold = $this->quantity;
+		    
+	    }
+	    
+	    return parent::save($options);
+	    
+	} 
+	
     /**
      * Get the store.
      */

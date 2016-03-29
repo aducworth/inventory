@@ -41,19 +41,10 @@ class ProductController extends Controller
 				
 				$product = Product::find($id);
 				
-				//dd($product);
-				
 				if( $product->id ) {
 					
 					$product->product_status = $request->bulk_status;
-					
-					// if it is sold, set qty sold = total qty
-					if( $request->bulk_status == 3 ) {
-						
-						$product->quantity_sold = $product->quantity;
-						
-					}
-					
+										
 					$product->save();
 					
 				}
