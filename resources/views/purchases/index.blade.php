@@ -85,7 +85,7 @@
 											
 											<td>
 												 <a href="{!! route('purchase.edit', array($purchase->id)) !!}" class='btn btn-default pull-right'>Edit</a>
-												 <a href="/product/create?purchase={!! $purchase->id !!}" class='btn btn-default pull-right'>Add Product</a> 
+												 <a href="/product/create?source={!! $purchase->source_id !!}" class='btn btn-default pull-right'>Add Product</a> 
 											</td>
 											
 										</tr>
