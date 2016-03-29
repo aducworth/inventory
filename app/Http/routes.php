@@ -55,6 +55,7 @@ Route::group(['middleware' => ['web']], function () {
 	
 	Route::resource('expense', 'ExpenseController');
 	
+	Route::get('/snapshot/gallery', 'SnapshotController@gallery');
 	Route::resource('snapshot', 'SnapshotController');
 		
 });

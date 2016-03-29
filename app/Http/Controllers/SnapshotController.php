@@ -137,6 +137,29 @@ class SnapshotController extends Controller
 	}
 	
 	/**
+	 * Display a gallery of all of the snapshots
+	 *
+	 * @param  Request  $request
+	 * @return Response
+	 */
+	public function gallery(Request $request)
+	{
+		$query = Snapshot::orderBy('created_at','desc');
+		
+		if( $request->from_date ) {
+			$query->where('purchase_date','>=',date('Y-m-d',strtotime($request->from_date)));
+		}
+		
+		if( $request->to_date ) {
+			$query->where('purchase_date','<=',date('Y-m-d',strtotime($request->to_date)));
+		}
+		
+		$snapshots = $query->get();
+
+	    return view('snapshots.gallery',['snapshots'=>$snapshots]);
+	}
+	
+	/**
      * Destroy the given snapshots.
      *
      * @param  Request  $request

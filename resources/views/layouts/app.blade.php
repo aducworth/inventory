@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Inventory</title>
+	<title><?=ucwords( str_replace( '/', ' ', Route::getCurrentRoute()->getPath() ) ) ?> - Inventory</title>
 	
 	<script type="text/javascript" src="{{ asset("assets/bower_components/jquery/dist/jquery.min.js") }}"></script>
 	<script type="text/javascript" src="{{ asset("assets/bower_components/moment/min/moment.min.js") }}"></script>
@@ -26,6 +26,48 @@
 		.table-text div {
 			padding-top: 6px;
 		}
+		
+		<? if( Route::getCurrentRoute()->getPath() == 'snapshot/gallery' ): ?>
+		
+			/*!
+			 * Start Bootstrap - Full Slider HTML Template (http://startbootstrap.com)
+			 * Code licensed under the Apache License v2.0.
+			 * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+			 */
+			
+			html,
+			body {
+			    height: 100%;
+			}
+			
+			.carousel,
+			.item,
+			.active {
+			    height: 100%;
+			}
+			
+			.carousel-inner {
+			    height: 100%;
+			}
+			
+			/* Background images are set within the HTML using inline CSS, not here */
+			
+			.fill {
+			    width: 100%;
+			    height: 100%;
+			    background-position: center;
+			    -webkit-background-size: cover;
+			    -moz-background-size: cover;
+			    background-size: cover;
+			    -o-background-size: cover;
+			}
+			
+			footer {
+			    margin: 50px 0;
+			}
+		
+		<? endif; ?>
+		
 	</style>
 
 </head>
