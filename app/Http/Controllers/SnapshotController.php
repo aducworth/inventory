@@ -48,19 +48,11 @@ class SnapshotController extends Controller
 	        'store_id' => 'required',
 	    ]);
 	    
-	    $item_list = array();
-	    $for_sale = Product::orderBy('name')->where('store_id',$request->store_id)->where('product_status',1)->get();
-	    
-	    foreach( $for_sale as $item ) {
-		    $item_list[] = $item->id;
-	    }
-	    
 	    if( !$request->id ) {
 		    
-		    Snapshot::create([
+		    $snapshot = Snapshot::create([
 		        'store_id'			=> $request->store_id,
 		        'notes'				=> $request->notes,
-		        'snapshot_products'	=> implode(',', $item_list),
 		        'snapshot_url'		=> (isset($filepath)?$filepath:'')
 		    ]);
 		    
@@ -69,7 +61,6 @@ class SnapshotController extends Controller
 		    $snapshot = Snapshot::find($request->id);
 		    
 	        $snapshot->store_id				= $request->store_id;
-	        $snapshot->snapshot_products	= implode(',', $item_list);
 	        $snapshot->notes 				= $request->notes;
 	        
 	        if( $snapshotUrl ) {
@@ -79,6 +70,12 @@ class SnapshotController extends Controller
 	        
 	        $snapshot->save();
 		    
+	    }
+	    
+	    $for_sale = Product::orderBy('name')->where('store_id',$request->store_id)->where('product_status',1)->get();
+	    
+	    foreach( $for_sale as $item ) {
+		    $snapshot->products()->attach($item->id);
 	    }
 	    	
 	    return redirect('/snapshot');

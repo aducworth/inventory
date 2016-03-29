@@ -62,4 +62,12 @@ class Product extends Model
     {
         return $this->belongsTo(Purchase::class);
     }
+    
+    /**
+     * Get the snapshots.
+     */
+    public function snapshots()
+    {
+        return $this->belongsToMany(Snapshot::class);
+    }
 }

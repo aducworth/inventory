@@ -20,5 +20,14 @@ class Snapshot extends Model
     {
         return $this->belongsTo(Store::class);
     }
+    
+    /**
+     * Get the products.
+     */
+    public function products()
+    {
+        return $this->belongsToMany(Product::class);
+    }
+
 
 }
