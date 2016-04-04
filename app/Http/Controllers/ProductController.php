@@ -181,7 +181,17 @@ class ProductController extends Controller
 		}
 		
 		if( isset($request->status) && $request->status != '' ) {
-			$query->where('product_status',$request->status);
+			
+			if( $request->status == 3 ) {
+				
+				$query->where('quantity_sold','>',0);
+				
+			} else {
+				
+				$query->where('product_status',$request->status);
+				
+			}
+			
 		}
 		
 		if( $request->source ) {
